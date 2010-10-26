@@ -5,12 +5,14 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "buoy_data"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Fetch marine buoy data from various sources}
+    gem.description = %Q{The goal of this gem is to provide marine buoy data from a variety of sources}
     gem.email = "minch@trazzler.com"
     gem.homepage = "http://github.com/minch/buoy_data"
     gem.authors = ["Adam Weller"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+		gem.add_development_dependency 'rspec'
+		gem.add_dependency 'httparty'
+		gem.files.include 'lib/buoy_data/*.rb'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
