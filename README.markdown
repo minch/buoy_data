@@ -12,7 +12,7 @@ gem install buoy_data
 
 <pre>
 require 'buoy_data'
-noaa_buoy = BuoyData.new(41114)
+noaa_buoy = BuoyData::NoaaBuoy.new(41114)
 noaa_buoy.get
 noaa_buoy.WVHT
 </pre>
