@@ -12,12 +12,16 @@ gem install buoy_data
 
 <pre>
 > require 'rubygems'
+ => false 
 > require 'buoy_data'
+ => true 
 > noaa_buoy = BuoyData::NoaaBuoy.new(41114)
+ => #<BuoyData::NoaaBuoy:0x00000100ce18e0 @buoy_id=41114, @url="http://www.ndbc.noaa.gov/data/realtime2/41114.spec"> 
 > noaa_buoy.get
+ => {"YY"=>"2010", "MM"=>"10", "DD"=>"26", "hh"=>"18", "mm"=>"42", "WVHT"=>"1.2", "SwH"=>"0.2", "SwP"=>"11.1", "WWH"=>"1.2", "WWP"=>"4.3", "SwD"=>"ENE", "WWD"=>"ESE", "STEEPNESS"=>"VERY_STEEP", "APD"=>"4.4", "MWD"=>"115"} 
 > noaa_buoy.WVHT
  => "1.2" 
-
+> # Wow I'm moving there, the swell is pumping :)!
 </pre>
 
 ## Note on Patches/Pull Requests
