@@ -1,6 +1,13 @@
 # buoy_data
 
-The goal of this gem is to provide marine buoy data from a variety of sources.
+## Description
+
+The goal of this gem is to provide a super simple interface to marine buoy data
+from a variety of sources.
+
+Currently only [NOAA buoys](http://www.ndbc.noaa.gov/) are supported but adding more is
+planned.
+
 
 ## Install
 
@@ -10,15 +17,25 @@ gem install buoy_data
 
 ## Usage
 
+The basic flow is:
+
+- instantiate a buoy_data object that will represent the target buoy
+- call :get method
+- reference the given field via convenient dot notation
+
 <pre>
 require 'rubygems'
 require 'buoy_data'
-noaa_buoy = BuoyData::NoaaBuoy.new(41114)
+noaa_buoy = BuoyData::NoaaBuoy.new(41012) # St Augustine, FL
 noaa_buoy.get
 noaa_buoy.WVHT
- => "1.2" 
-# Wow I'm moving there, the swell is pumping :)!
+ => "1.4" 
+noaa_buoy.APD
+ => "4.6"
+# Wow the swell is pumping, I'm moving ;)!
 </pre>
+
+*Note:  access to the HTTParty response object is available via the :response method.
 
 ## Note on Patches/Pull Requests
  
