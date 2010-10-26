@@ -23,9 +23,12 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "buoy_data.gemspec",
      "lib/buoy_data.rb",
      "lib/buoy_data/buoy.rb",
-     "lib/buoy_data/noaa_buoy.rb"
+     "lib/buoy_data/noaa_buoy.rb",
+     "spec/noaa_buoy_spec.rb",
+     "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/minch/buoy_data}
   s.rdoc_options = ["--charset=UTF-8"]
