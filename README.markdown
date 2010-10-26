@@ -20,7 +20,7 @@ gem install buoy_data
 The basic flow is:
 
 - instantiate a buoy_data object that will represent the target buoy
-- call :get method
+- call its :get method
 - reference the given field via convenient dot notation
 
 <pre>
