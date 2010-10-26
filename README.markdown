@@ -21,7 +21,7 @@ The basic flow is:
 
 - instantiate a buoy_data object that will represent the target buoy
 - call its :get method
-- reference the given field via convenient dot notation
+- reference the given buoy data fields via convenient dot notation
 
 <pre>
 require 'rubygems'
