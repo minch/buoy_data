@@ -11,10 +11,13 @@ gem install buoy_data
 ## Usage
 
 <pre>
-require 'buoy_data'
-noaa_buoy = BuoyData::NoaaBuoy.new(41114)
-noaa_buoy.get
-noaa_buoy.WVHT
+> require 'rubygems'
+> require 'buoy_data'
+> noaa_buoy = BuoyData::NoaaBuoy.new(41114)
+> noaa_buoy.get
+> noaa_buoy.WVHT
+ => "1.2" 
+
 </pre>
 
 ## Note on Patches/Pull Requests
