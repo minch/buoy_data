@@ -27,7 +27,7 @@ The basic flow is:
 require 'rubygems'
 require 'buoy_data'
 noaa_buoy = BuoyData::NoaaBuoy.new(41012) # St Augustine, FL
-noaa_buoy.get # get and parse the latest reading for the station
+noaa_buoy.get
 noaa_buoy.WVHT
  => "1.4" 
 noaa_buoy.APD
