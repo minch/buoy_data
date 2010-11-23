@@ -35,22 +35,27 @@ noaa_buoy.APD
 # Wow the swell is pumping, I'm moving ;)!
 </pre>
 
-Note:  access to the HTTParty response object is available via the :response method.
-
-So, until a more friendly method is added, all of the historical data for the given station
-can be obtained via (continuing from the above):
+All of the historical data for the given station can be obtained via
+(continuing from the above):
 
 <pre>
-noaa_buoy.response.parsed_response.split(/\n/)
+noaa_buoy.get_all
 </pre>
 
-Which will provide an array of strings (one string per row) for all the historical data
-available for the given station.  In other words, for the station in the example above,
-41012, you'd get all the data at:
+Which will provide an array of arrays (one array of the fields per row) for all the
+historical data available for the given station.  In other words, for the station
+in the example above, 41012, you'd get all the data at:
 
 http://www.ndbc.noaa.gov/data/realtime2/41012.spec
 
-as an array of strings.
+as an array of arrays.
+
+Get a graph of the 5-day trend of Wave Height (WVHT) for the given station (google chart
+api):
+
+<pre>
+noaa_buoy.google_chart_url
+</pre>
 
 ## TODO
 
