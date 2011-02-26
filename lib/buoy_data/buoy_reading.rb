@@ -1,5 +1,5 @@
 module BuoyData
-  class Buoy
+  class BuoyReading
     include HTTParty
 
     GET_SUCCESS = 200

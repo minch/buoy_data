@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Adam Weller"]
-  s.date = %q{2010-11-22}
+  s.date = %q{2011-02-26}
   s.description = %q{The goal of this gem is to provide marine buoy data from a variety of sources}
   s.email = %q{minch@trazzler.com}
   s.extra_rdoc_files = [
@@ -25,9 +25,9 @@ Gem::Specification.new do |s|
      "VERSION",
      "buoy_data.gemspec",
      "lib/buoy_data.rb",
-     "lib/buoy_data/buoy.rb",
-     "lib/buoy_data/noaa_buoy.rb",
-     "spec/noaa_buoy_spec.rb",
+     "lib/buoy_data/buoy_reading.rb",
+     "lib/buoy_data/noaa_buoy_observation.rb",
+     "lib/buoy_data/noaa_buoy_reading.rb",
      "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/minch/buoy_data}
@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Fetch marine buoy data from various sources}
   s.test_files = [
-    "spec/noaa_buoy_spec.rb",
+    "spec/noaa_buoy_observation_spec.rb",
      "spec/spec_helper.rb"
   ]
 
@@ -47,13 +47,16 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_runtime_dependency(%q<httparty>, [">= 0"])
+      s.add_runtime_dependency(%q<json>, [">= 0"])
     else
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<httparty>, [">= 0"])
+      s.add_dependency(%q<json>, [">= 0"])
     end
   else
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<httparty>, [">= 0"])
+    s.add_dependency(%q<json>, [">= 0"])
   end
 end
 
