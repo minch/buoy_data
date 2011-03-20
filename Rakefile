@@ -13,6 +13,7 @@ begin
     gem.add_development_dependency 'rspec'
     gem.add_dependency 'httparty'
     gem.add_dependency 'json'
+    gem.add_dependency 'nokogiri'
     gem.files.include 'lib/buoy_data/*.rb'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end

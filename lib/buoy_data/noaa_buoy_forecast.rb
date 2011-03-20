@@ -2,23 +2,42 @@ module BuoyData
   class NoaaBuoyForecast < NoaaBuoyReading
     require 'json/add/core'
 
-    def get_all(format = :plain)
-      response = get(true)
+    def get(raw = true)
+      response = super raw
       return unless response
-      response = parse_response response
+      @response = response
 
-      # TODO:  finish
-      case format
-      when :json
-        json_response = []
+      @parsed_response = parse_response @response
+    end
 
-        response = json_response
-      end
-
-      response
+    # This pattern differs from the previous design but seems better
+    def to_json
+      response = @parsed_response
+      response = response.map{|row| bull_row_to_hash row}
+      response.to_json
     end
 
     private
+
+    def bull_row_to_hash(row)
+      hash = {
+        :time => { :day => row[0][0], :hour => row[0][1] },
+        :total => { :hst => row[1][0], :n => row[1][1], :x => row[1][2] }
+      }
+      5.times do |index|
+        hash.store("separate_wave_#{index}".to_sym, separate_wave_hash(row[2..row.size-1]))
+      end
+      hash
+    end
+
+    def separate_wave_hash(array)
+      h = {
+        :wind => array[0],
+        :hs => array[1],
+        :tp => array[2],
+        :dir => array[3]
+      }
+    end
 
     def parse_response(response)
       # Get all readings
@@ -28,12 +47,13 @@ module BuoyData
       response = remove_header_from response
       response = remove_footer_from response
 
-      response = parse_noaa_bull_response response
+      # Now really go through this gnarly bull format and make some sense of it
+      response = parse_bull_response response
 
       response
     end
 
-    def parse_noaa_bull_response(response)
+    def parse_bull_response(response)
       parsed_response = []
 
       #
@@ -67,7 +87,10 @@ module BuoyData
       #
       # totals
       #
-      totals = response.map{|row| row[1].strip.split(/\s+/)}
+      totals = response.map do |row|
+        row = row[1].strip.split(/\s+/)
+        row = row.size == 3 ? row : row << ""
+      end
 
       #
       # up to 6 swells
