@@ -1,12 +1,12 @@
 require File.join(File.dirname(__FILE__), 'spec_helper')
 
-describe BuoyData::BuoyList do
-  let (:buoy_list) { BuoyData::BuoyList.new }
+describe BuoyData::NoaaBuoyList do
+  let (:buoy_list) { BuoyData::NoaaBuoyList.new }
 
   context 'get' do
     it "should get buoy list" do
       buoy_list.should be
-      buoy_list.stub(:ndbc_stations).and_return(stubbed_station_list)
+      buoy_list.stub(:stations).and_return(stubbed_station_list)
       stations = buoy_list.get
 
       stations.should_not be_empty
