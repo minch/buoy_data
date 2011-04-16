@@ -6,17 +6,21 @@ module BuoyData
     def get
       stats = {
         :stations => [],
-        :errors => [] 
+        :station_count => 0,
+        :errors => [],
+        :error_count => 0
       }
       @doc = doc
       @station_list = stations doc
 
-      @station_list.each do |s|
+      @station_list.each do |station_url|
         begin
-          h = scrape_station s
+          h = scrape_station(station_url)
           stats[:stations].push h
+          stats[:station_count] += 1
         rescue => e
-          stats[:errors].push({ :url => s, :error => e })
+          stats[:error_count] += 1
+          stats[:errors].push({ :url => s, :error => e.backtrace })
         end
       end
 
@@ -38,29 +42,6 @@ module BuoyData
     end
 
     def scrape_station(url)
-    end
-
-    def lat_lng_from(text)
-      text = text.sub(/ \(.*$/, '')
-      matches = /([0-9\.]+ ?[NESW]) ([0-9\.]+ ?[NESW])/.match(text)
-
-      matches && matches.size == 3 ? [ $1, $2 ] : []
-    end
-
-    def normal_lat(lat)
-      lat, dir = lat.split(/ /)
-      lat = lat.to_f
-      lat = -lat if dir == 'S'
-
-      lat
-    end
-
-    def normal_lng(lng)
-      lng, dir = lng.split(/ /)
-      lng = lng.to_f
-      lng = -lng if dir == 'W'
-
-      lng
     end
   end
 end
