@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{buoy_data}
-  s.version = "1.0.0.beta.0"
+  s.version = "1.0.0.beta.1"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Adam Weller"]
-  s.date = %q{2011-03-20}
+  s.date = %q{2011-04-17}
   s.description = %q{The goal of this gem is to provide marine buoy data from a variety of sources}
   s.email = %q{minch@trazzler.com}
   s.extra_rdoc_files = [
@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
      "lib/buoy_data/noaa_buoy_list.rb",
      "lib/buoy_data/noaa_buoy_observation.rb",
      "lib/buoy_data/noaa_buoy_reading.rb",
+     "lib/buoy_data/noaa_station.rb",
      "spec/noaa_buoy_forecast_spec.rb",
      "spec/noaa_buoy_list_spec.rb",
      "spec/noaa_buoy_observation_spec.rb",
