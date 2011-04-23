@@ -27,29 +27,72 @@ module BuoyData
       element = elements.find{|e| /\d{2,3}\.\d{2,3}/.match(e)}
       latlng = lat_lng_from element
 
-      unless latlng.empty?
+      unless latlng.blank?
         h[:lat] = normal_lat latlng.first
         h[:lng] = normal_lng latlng.last
       end
 
       # Latest reading
-      xpath = "//table/caption[@class='titleDataHeader'][text()[contains(.,'Conditions')]]"
-      xpath += "/../tr"
-      elements = doc.xpath xpath
-
       current_reading = {}
-      unless elements.empty?
-        elements.each do |element|
-          reading = scrape_condition_from_element(element)  
-          current_reading.merge! reading unless reading.blank?
-        end
-      end
+
+      current_reading = latest_reading doc
 
       # If we couldn't get a water temp from this station then it's not of use
       return {} unless valid_reading? current_reading
       h.merge! current_reading
 
       h
+    end
+
+    # Do the best we can but get something
+    def latest_reading(doc)
+      # Check the current reading
+      reading = current_reading doc
+
+      # If we don't have a wave height (:wvht) then let's check the previous reading
+      unless reading[:wvht]
+        p_reading = previous_reading doc
+        reading = p_reading if p_reading[:wvht]
+      end
+
+      reading
+    end
+
+    # Reding from the 'Conditions at..as of..' table
+    def current_reading(doc)
+      reading = {}
+      xpath = "//table/caption[@class='titleDataHeader'][text()[contains(.,'Conditions')]]"
+      xpath += "/../tr"
+      elements = doc.xpath xpath
+
+      unless elements.empty?
+        elements.each do |element|
+          r = scrape_condition_from_element(element)
+          reading.merge! r unless r.blank?
+        end
+      end
+
+      reading
+    end
+
+    # Most recent observation from the 'Previous observations' table
+    # This is unfinished, will need to capture the markup when the
+    # current reading is not avaliable and stub it w/fakeweb...
+    def previous_reading(doc)
+      reading = {}
+      text = 'Previous observations'
+      xpath = "//table/caption[@class='dataHeader'][text()[contains(.,'#{text}')]]"
+
+      xpath += "/../tr/td"
+      elements = doc.xpath xpath
+
+      #unless elements.empty?
+        #elements.each do |element|
+          #p element.text
+        #end
+      #end
+
+      reading
     end
 
     private
@@ -60,10 +103,7 @@ module BuoyData
 
     def scrape_condition_from_element(element)
       reading = {}
-      # (include units)
-      #regexp = /\(([A-Z]+)\):\n\t ?(.*)\n$/
-      # (no units)
-      regexp = /\(([A-Z]+)\):\n\t ?([0-9.-]+).*\n$/
+      regexp = /\(([A-Z]+)\):\n\n?\t? ?(.*)\n$/m
       text = element.text
 
       if regexp.match(text)
@@ -72,6 +112,7 @@ module BuoyData
         key = key.downcase.to_sym
         value = $2
         return reading unless value
+        value = $1 if value =~ /([0-9.]+)/
         value = value.lstrip.rstrip.to_f
         reading = { key => value }
       end
@@ -80,7 +121,8 @@ module BuoyData
     end
 
     def lat_lng_from(text)
-      text = text.sub(/ \(.*$/, '')
+      text = text.sub(/ \(.*$/, '') rescue nil
+      return unless text
       matches = /([0-9\.]+ ?[NESW]) ([0-9\.]+ ?[NESW])/.match(text)
 
       matches && matches.size == 3 ? [ $1, $2 ] : []
