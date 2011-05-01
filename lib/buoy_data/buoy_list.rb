@@ -3,7 +3,7 @@ module BuoyData
   require 'nokogiri'
 
   class BuoyList
-    def get
+    def get(limit = 0)
       stats = {
         :stations => [],
         :station_count => 0,
@@ -13,15 +13,20 @@ module BuoyData
       @doc = doc
       @station_list = stations doc
 
+      # Only relevant for testing
+      @station_list = @station_list[0..limit] if limit > 0
+
       @station_list.each do |station_url|
-        begin
+        #p station_url
+        
+        #begin
           h = scrape_station(station_url)
           stats[:stations].push h
           stats[:station_count] += 1
-        rescue => e
-          stats[:error_count] += 1
-          stats[:errors].push({ :url => s, :error => e.backtrace })
-        end
+        #rescue => e
+          #stats[:error_count] += 1
+          #stats[:errors].push({ :url => station_url, :error => e.backtrace })
+        #end
       end
 
       stats
