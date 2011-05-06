@@ -9,7 +9,7 @@ describe BuoyData::NoaaStation do
     data.should be_a(Hash)
 
     data[:wtmp].should be_a(Float)
-    data[:source_updated_at].should be_a(DateTime)
+    data[:source_updated_at].should be_a(Time)
   end
 
   def station_url
