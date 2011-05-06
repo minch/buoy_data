@@ -16,10 +16,6 @@ module BuoyData
   # files (they don't exists for stations only buoys).
 
   class NoaaStation
-    def normalize_url(url)
-      /^{Noaa::BASE_URL}/.match(url) ? url : [Noaa::BASE_URL, url].join('/')
-    end
-
     def scrape(url)
       url = normalize_url url
 
@@ -80,7 +76,18 @@ module BuoyData
     # Reding from the 'Conditions at..as of..' table
     def current_reading(doc)
       reading = {}
-      xpath = "//table/caption[@class='titleDataHeader'][text()[contains(.,'Conditions')]]"
+
+      xpath = "//table/caption[@class='titleDataHeader']["
+      xpath += "contains(text(),'Conditions')"
+      xpath += " and "
+      xpath += "not(contains(text(),'Solar Radiation'))"
+      xpath += "]"
+
+      # Get the reading timestamp
+      source_updated_at = reading_timestamp(doc, xpath)
+      reading[:source_updated_at] = source_updated_at
+
+      # Get the reading data
       xpath += "/../tr"
       elements = doc.xpath xpath
 
@@ -161,6 +168,35 @@ module BuoyData
       lng = -lng if dir == 'W'
 
       lng
+    end
+
+    def normalize_url(url)
+      base_url = Noaa::BASE_URL
+      /^#{base_url}/.match(url) ? url : [Noaa::BASE_URL, url].join('/')
+    end
+
+    def logger
+      RAILS_DEFAULT_LOGGER if defined? RAILS_DEFAULT_LOGGER
+    end
+
+    def reading_timestamp(doc, xpath)
+      elements = doc.xpath(xpath).children rescue []
+      unless elements.empty?
+        begin
+          elements = elements.to_a
+          elements.reject!{|e|e.name == 'br'}
+          s = elements.last.text.sub(/ ?:$/, '')
+          time, date = s.split(/ on /)
+          month, day, year = date.split(/\//)
+          date = [ day, month, year ].join('-')
+          hour = time[0..1]
+          minutes = time[2..3]
+          time = [ hour, minutes ].join(':')
+          s = [ date, time ].join('T')
+          t = DateTime.parse s if s
+        rescue
+        end
+      end
     end
   end
 end
