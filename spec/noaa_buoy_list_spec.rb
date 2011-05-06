@@ -13,11 +13,6 @@ describe BuoyData::NoaaBuoyList do
       results[:errors].should be_empty
       stations = results[:stations]
       stations.compact.should_not be_empty
-      station = stations.first
-
-      # Verify we have water temp value
-      wtmp = station[:wtmp]
-      wtmp.should be_kind_of Float
     end
   end
 

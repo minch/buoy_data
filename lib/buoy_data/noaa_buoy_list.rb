@@ -5,11 +5,10 @@ module BuoyData
     end
 
     def base_url
-      'http://www.ndbc.noaa.gov'
+      Noaa::BASE_URL
     end
 
     def scrape_station(url)
-      url = [ base_url, url ].join('/')
       NoaaStation.new.scrape(url)
     end
 

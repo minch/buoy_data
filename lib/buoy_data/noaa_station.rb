@@ -2,8 +2,27 @@ module BuoyData
   require 'open-uri'
   require 'nokogiri'
 
+  # This class scrapes readings from noaa stations.
+  # A station in this parlance is an noaa resource that does
+  # not have wave data (in other words is not necessarily
+  # a floating buoy).
+  #
+  # There is no super class for this model as we don't yet
+  # know if this set up will apply for other data sources.
+  #
+  # NOTE: This class can currently be used to scrape the latest
+  # readings for buoys as well.  The reason it exists however
+  # is that we can't fetch data for the stations from the .bull
+  # files (they don't exists for stations only buoys).
+
   class NoaaStation
+    def normalize_url(url)
+      /^{Noaa::BASE_URL}/.match(url) ? url : [Noaa::BASE_URL, url].join('/')
+    end
+
     def scrape(url)
+      url = normalize_url url
+
       h = {}
       xpath = "//h1"
 
