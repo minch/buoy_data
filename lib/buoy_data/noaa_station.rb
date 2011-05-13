@@ -193,7 +193,7 @@ module BuoyData
           minutes = time[2..3]
           time = [ hour, minutes ].join(':')
           s = [ date, time ].join('T')
-          t = Time.parse s if s
+          t = Time.parse(s).utc if s
         rescue
         end
       end
