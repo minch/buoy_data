@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{buoy_data}
-  s.version = "1.0.0.beta.2"
+  s.version = "1.0.0.beta.3"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["Adam Weller"]
-  s.date = %q{2011-05-06}
+  s.date = %q{2011-05-12}
   s.description = %q{The goal of this gem is to provide marine buoy data from a variety of sources}
   s.email = %q{minch@trazzler.com}
   s.extra_rdoc_files = [
