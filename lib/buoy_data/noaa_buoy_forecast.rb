@@ -132,6 +132,7 @@ module BuoyData
       # NOTE:  The bull files will probably change per ocean/geo:
       # E.g., there are two model runs for the northern atlantic:
       #"http://polar.ncep.noaa.gov/waves/latest_run/nah.#{buoy_id}.bull"
+      #http://polar.ncep.noaa.gov/waves/WEB_P/multi_1.latest_run/plots/multi_1.41012.bull
 
       "http://polar.ncep.noaa.gov/waves/latest_run/wna.#{buoy_id}.bull"
     end
