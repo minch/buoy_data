@@ -3,7 +3,14 @@ module BuoyData
   require 'nokogiri'
 
   class BuoyList
-    def get(limit = 0)
+    def get(options = {})
+      default_options = {
+        :limit => 0,
+        :id => nil,
+        :verbose => true
+      }
+      options = default_options.merge options
+
       stats = {
         :stations => [],
         :station_count => 0,
@@ -13,13 +20,15 @@ module BuoyData
       @doc = doc
       @station_list = stations doc
 
-      # Only relevant for testing
-      @station_list = @station_list[0..limit] if limit > 0
+      # Probably only relevant for testing
+      @station_list = @station_list[0..options[:limit]-1] if options[:limit] > 0
+      @station_list = [ url_by_id(options[:id]) ] if options[:id]
 
       @station_list.each do |station_url|
         #p station_url
         
         #begin
+          puts "scraping --> #{station_url}" if options[:verbose]
           h = scrape_station(station_url)
           stats[:stations].push h
           stats[:station_count] += 1
@@ -32,10 +41,8 @@ module BuoyData
       stats
     end
 
-    def url
-    end
-
-    def base_url
+    def url_by_id(id)
+      "station_page.php?station=#{id}"
     end
 
     def doc

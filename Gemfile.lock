@@ -1,8 +1,10 @@
 PATH
   remote: .
   specs:
-    buoy_data (1.0.0.beta.3)
+    buoy_data (1.0.0.beta.5)
+      buoy_data
       httparty
+      jeweler
       json
       nokogiri
 
@@ -12,14 +14,14 @@ GEM
     crack (0.1.8)
     diff-lcs (1.1.2)
     git (1.2.5)
-    httparty (0.7.7)
+    httparty (0.7.8)
       crack (= 0.1.8)
     jeweler (1.6.0)
       bundler (~> 1.0.0)
       git (>= 1.2.5)
       rake
-    json (1.5.1)
-    nokogiri (1.4.4)
+    json (1.5.3)
+    nokogiri (1.5.0)
     rake (0.9.0)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
