@@ -176,7 +176,7 @@ module BuoyData
     end
 
     def logger
-      RAILS_DEFAULT_LOGGER if defined? RAILS_DEFAULT_LOGGER
+      Rails.logger if defined? Rails.logger
     end
 
     def reading_timestamp(doc, xpath)
