@@ -49,11 +49,7 @@ module BuoyData
 
       # Latest reading
       current_reading = {}
-
       current_reading = latest_reading doc
-
-      # If we couldn't get a water temp from this station then it's not of use
-      return {} unless valid_reading? current_reading
       h.merge! current_reading
 
       h
@@ -112,17 +108,12 @@ module BuoyData
       xpath += "/../tr/td"
       elements = doc.xpath xpath
 
-      #unless elements.empty?
-        #elements.each do |element|
-          #p element.text
-        #end
-      #end
-
       reading
     end
 
     private
     # No water temp (wtmp) is our filter
+    # NOTE:  Pulled this as the repaired version of SAUF1 is out of the water
     def valid_reading?(reading)
       !reading.blank? && reading.keys.include?(:wtmp)
     end

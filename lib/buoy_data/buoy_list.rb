@@ -25,17 +25,10 @@ module BuoyData
       @station_list = [ url_by_id(options[:id]) ] if options[:id]
 
       @station_list.each do |station_url|
-        #p station_url
-        
-        #begin
-          puts "scraping --> #{station_url}" if options[:verbose]
-          h = scrape_station(station_url)
-          stats[:stations].push h
-          stats[:station_count] += 1
-        #rescue => e
-          #stats[:error_count] += 1
-          #stats[:errors].push({ :url => station_url, :error => e.backtrace })
-        #end
+        puts "scraping --> #{station_url}" if options[:verbose]
+        h = scrape_station(station_url)
+        stats[:stations].push h
+        stats[:station_count] += 1
       end
 
       stats
