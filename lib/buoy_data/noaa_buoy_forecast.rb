@@ -12,7 +12,7 @@ module BuoyData
 
     # This pattern differs from the previous design but seems better
     def to_json
-      response = @parsed_response
+      response = @parsed_response || []
       response = response.map{|row| bull_row_to_hash row}
       response.to_json
     end
