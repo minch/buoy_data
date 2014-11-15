@@ -137,7 +137,11 @@ module BuoyData
       #"http://polar.ncep.noaa.gov/waves/latest_run/wna.#{buoy_id}.bull"
       #
 
-      "http://polar.ncep.noaa.gov/waves/WEB_P/multi_1.latest_run/plots/multi_1.#{buoy_id}.bull"
+      "#{hostname}/waves/WEB/multi_1.latest_run/plots/multi_1.#{buoy_id}.bull"
+    end
+
+    def hostname(protocol = 'http')
+      "#{protocol}://polar.ncep.noaa.gov"
     end
 
     # The header is the first 7 lines
