@@ -42,7 +42,7 @@ module BuoyData
       element = elements.find{|e| /\d{2,3}\.\d{2,3}/.match(e)}
       latlng = lat_lng_from element
 
-      unless latlng.blank?
+      unless latlng.empty?
         h[:lat] = normal_lat latlng.first
         h[:lng] = normal_lng latlng.last
       end
@@ -90,7 +90,7 @@ module BuoyData
       unless elements.empty?
         elements.each do |element|
           r = scrape_condition_from_element(element)
-          reading.merge! r unless r.blank?
+          reading.merge! r unless r.empty?
         end
       end
 

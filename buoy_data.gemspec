@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.authors = ["Adam Weller"]
   s.date = %q{2011-07-10}
   s.description = %q{The goal of this gem is to provide marine buoy data from a variety of sources}
-  s.email = %q{minch@trazzler.com}
+  s.email = %q{minch@lowpressure.org}
   s.extra_rdoc_files = [
     "LICENSE",
     "README.markdown"
@@ -55,14 +55,12 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<buoy_data>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_runtime_dependency(%q<httparty>, [">= 0"])
-      s.add_runtime_dependency(%q<json>, [">= 0"])
       s.add_runtime_dependency(%q<nokogiri>, [">= 0"])
     else
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<buoy_data>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<httparty>, [">= 0"])
-      s.add_dependency(%q<json>, [">= 0"])
       s.add_dependency(%q<nokogiri>, [">= 0"])
     end
   else
@@ -70,7 +68,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<buoy_data>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<httparty>, [">= 0"])
-    s.add_dependency(%q<json>, [">= 0"])
     s.add_dependency(%q<nokogiri>, [">= 0"])
   end
 end

@@ -29,10 +29,10 @@ describe BuoyData::NoaaStation do
   end
 
   def station_url
-    "station_page.php?station=sauf1"
+    "station_page.php?station=lkwf1"
   end
 
   def buoy_url
-    "station_page.php?station=41012"
+    "station_page.php?station=41009"
   end
 end

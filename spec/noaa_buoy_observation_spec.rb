@@ -5,7 +5,7 @@ describe BuoyData::NoaaBuoyObservation do
     #FakeWeb.allow_net_connect = false # TODO
   end
 
-  let (:noaa_buoy_observation) { BuoyData::NoaaBuoyObservation.new(41012) }
+  let (:noaa_buoy_observation) { BuoyData::NoaaBuoyObservation.new(41009) }
 
   context 'get' do
     it 'should get buoy data' do
@@ -19,7 +19,9 @@ describe BuoyData::NoaaBuoyObservation do
     end
 
     it 'should generate google chart url' do
-      noaa_buoy_observation.google_chart_url.should match(/chart.apis.google.com/)
+      pending
+      url = noaa_buoy_observation.google_chart_url
+      url.should match(/chart.apis.google.com/)
     end
 
     it 'should parse date fields' do
@@ -38,15 +40,14 @@ describe BuoyData::NoaaBuoyObservation do
       response.size.should > 1
     end
 
-    it 'should get all as :json' do
-      json = noaa_buoy_observation.get_all(:json)
-      hash = JSON.parse(json.first)
+    it 'should get all' do
+      hash = noaa_buoy_observation.get_all.first
       hash.should be_a(Hash)
     end 
 
     it 'should parse date fields' do
-      response = noaa_buoy_observation.get_all(:json)
-      noaa_buoy_observation = JSON.parse(response.first)
+      response = noaa_buoy_observation.get_all
+      noaa_buoy_observation = response.first
 
       noaa_buoy_observation[:YY.to_s].should match(/^\d{4}$/)
       noaa_buoy_observation[:DD.to_s].should match(/^\d{2}$/)

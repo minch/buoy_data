@@ -4,6 +4,7 @@ describe BuoyData::NoaaMarineForecast do
   let (:station) { BuoyData::NoaaMarineForecast.new }
 
   it "should scrape forecast" do
+    pending
     url = forecast_url
     data = station.scrape url
 

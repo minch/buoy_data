@@ -1,20 +1,17 @@
 module BuoyData
   class NoaaBuoyForecast < NoaaBuoyReading
-    require 'json/add/core'
-
     def get(raw = true)
       response = super raw
       return unless response
       @response = response
 
-      @parsed_response = parse_response @response
+      parsed_response = parse_response @response
+
+      to_hash_response parsed_response
     end
 
-    # This pattern differs from the previous design but seems better
-    def to_json
-      response = @parsed_response || []
-      response = response.map{|row| bull_row_to_hash row}
-      response.to_json
+    def to_hash_response(response)
+      response.map{|row| bull_row_to_hash row}
     end
 
     private
