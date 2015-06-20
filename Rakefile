@@ -7,7 +7,7 @@ begin
     gem.name = "buoy_data"
     gem.summary = %Q{Fetch marine buoy data from various sources}
     gem.description = %Q{The goal of this gem is to provide marine buoy data from a variety of sources}
-    gem.email = "minch@trazzler.com"
+    gem.email = "minch@lowpressure.org"
     gem.homepage = "http://github.com/minch/buoy_data"
     gem.authors = ["Adam Weller"]
     gem.add_development_dependency 'rspec'
